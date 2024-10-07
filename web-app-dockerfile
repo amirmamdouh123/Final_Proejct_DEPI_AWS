@@ -1,0 +1,19 @@
+FROM tomcat:latest
+
+USER root
+
+RUN apt-get update -y && \ 
+    apt-get install -y openjdk-17-jdk maven && \
+    apt-get clean
+
+WORKDIR /home/webapp
+
+
+COPY ./Simple_MVC_WebApplicationInitializer /home/webapp
+
+RUN mvn clean install
+
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
